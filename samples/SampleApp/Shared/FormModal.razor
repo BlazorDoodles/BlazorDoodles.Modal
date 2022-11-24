@@ -1,0 +1,51 @@
+﻿@inherits ModalBase<PersonModel>
+
+<EditForm Model="NewPerson" OnValidSubmit="() => Modal.Close(NewPerson)">
+
+    <DataAnnotationsValidator />
+
+    <MyModal>
+        <div class="modal-header">
+            <h1 class="modal-title fs-5">Create Person</h1>
+            <button @onclick="Modal.Cancel" type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="first-name" class="form-label">First Name</label>
+                <InputText @bind-Value="NewPerson.FirstName" class="form-control" id="first-name" />
+                <ValidationMessage For="() => NewPerson.FirstName" />
+            </div>
+            <div class="mb-3">
+                <label for="last-name" class="form-label">Last Name</label>
+                <InputText @bind-Value="NewPerson.LastName" class="form-control" id="last-name" />
+                <ValidationMessage For="() => NewPerson.LastName" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <InputText @bind-Value="NewPerson.EmailAddress" class="form-control" id="email" type="email" />
+                <ValidationMessage For="() => NewPerson.EmailAddress" />
+            </div>
+            <div class="mb-3">
+                <label for="about" class="form-label">Email Address</label>
+                <InputTextArea @bind-Value="NewPerson.About" class="form-control" id="about" />
+                <ValidationMessage For="() => NewPerson.About" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col">
+                <button class="btn btn-primary w-100">
+                    Confirm
+                </button>
+            </div>
+            <div class="col">
+                <button @onclick="Modal.Cancel" type="button" class="btn btn-secondary w-100">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </MyModal>
+</EditForm>
+
+@code {
+    private PersonModel NewPerson { get; set; } = new();
+}

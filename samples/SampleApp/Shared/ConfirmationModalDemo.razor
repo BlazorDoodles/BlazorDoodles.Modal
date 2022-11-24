@@ -1,0 +1,60 @@
+﻿@inject IModalService ModalService
+
+<EditForm Model="Parameters" OnValidSubmit="ShowConfirmationModal">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Confirmation Modal</h5>
+            <p class="card-text">
+                <div class="mb-3">
+                    <label for="confirmation-modal-title" class="form-label">Title</label>
+                    <InputText @bind-Value="Parameters.Title" class="form-control" id="confirmation-modal-title" />
+                    <ValidationMessage For="() => Parameters.Title" />
+                </div>
+                <div class="mb-3">
+                    <label for="confirmation-modal-content" class="form-label">Content</label>
+                    <InputTextArea @bind-Value="Parameters.Text" class="form-control" id="confirmation-modal-content" />
+                    <ValidationMessage For="() => Parameters.Text" />
+                </div>
+            </p>
+
+            <div class="row mt-2 align-items-end">
+                <div class="col">
+                    <button class="btn btn-primary">Show Modal</button>
+                </div>
+                <div class="col-auto">
+                    <span class="fw-bold">Result: </span>
+                    @if (Result is null)
+                    {
+                        <span class="text-muted fst-italic">Not Launched</span>
+                    }
+                    else if (Result.IsCanceled)
+                    {
+                        <span class="text-danger">
+                            <span class="oi oi-circle-x" aria-hidden="true"></span>
+                            Canceled
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-success">
+                            <span class="oi oi-circle-check" aria-hidden="true"></span>
+                            Confirmed!
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    private ConfirmationModalParameters Parameters { get; set; } = new();
+    private ModalResult? Result { get; set; }
+
+    private async Task ShowConfirmationModal()
+    {
+        Result = await ModalService.Open(Parameters);
+    }
+}

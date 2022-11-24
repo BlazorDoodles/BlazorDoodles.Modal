@@ -1,0 +1,23 @@
+﻿@inherits ModalBase
+
+<MyModal>
+    <div class="modal-header">
+        <h1 class="modal-title fs-5">Simple Modal</h1>
+        <button @onclick="Modal.Cancel" type="button" class="btn-close" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        Do the thing?
+    </div>
+    <div class="modal-footer">
+        <div class="col">
+            <button @onclick="Modal.Close" type="button" class="btn btn-primary w-100">
+                Confirm
+            </button>
+        </div>
+        <div class="col">
+            <button @onclick="Modal.Cancel" type="button" class="btn btn-secondary w-100">
+                Cancel
+            </button>
+        </div>
+    </div>
+</MyModal>

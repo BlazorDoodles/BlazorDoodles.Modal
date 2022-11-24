@@ -1,0 +1,21 @@
+﻿@using System.Collections.Specialized;
+@inject IModalService ModalService
+@implements IDisposable
+
+@foreach (var modalInstance in ModalService.ActiveModals)
+{
+    <DynamicComponent Type="modalInstance.ModalType" Parameters="modalInstance.Parameters" />
+}
+
+@code {
+
+    public void Dispose()
+    {
+        ModalService.OnChange -= StateHasChanged;
+    }
+
+    protected override void OnInitialized()
+    {
+        ModalService.OnChange += StateHasChanged;
+    }
+}

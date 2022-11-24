@@ -1,0 +1,75 @@
+﻿@inject IModalService ModalService
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Form Modal</h5>
+
+        @if (People.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var person in People)
+                    {
+                        <tr>
+                            <td>@person.FirstName</td>
+                            <td>@person.LastName</td>
+                            <td>@person.EmailAddress</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">Launch the modal to add people!</p>
+        }
+
+        <div class="row mt-2 align-items-end">
+            <div class="col">
+                <button class="btn btn-primary" @onclick="ShowModal">Show Modal</button>
+            </div>
+            <div class="col-auto">
+                <span class="fw-bold">Result: </span>
+                @if (Result is null)
+                {
+                    <span class="text-muted fst-italic">Not Launched</span>
+                }
+                else if (Result.IsCanceled)
+                {
+                    <span class="text-danger">
+                        <span class="oi oi-circle-x" aria-hidden="true"></span>
+                        Canceled
+                    </span>
+                }
+                else
+                {
+                    <span class="text-success">
+                        <span class="oi oi-circle-check" aria-hidden="true"></span>
+                        Confirmed!
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<PersonModel> People { get; set; } = new();
+
+    private ModalResult<PersonModel>? Result { get; set; }
+
+    private async Task ShowModal()
+    {
+        Result = await ModalService.Open<FormModal, PersonModel>();
+
+        if (!Result.IsCanceled)
+            People.Add(Result.Data);
+    }
+}
