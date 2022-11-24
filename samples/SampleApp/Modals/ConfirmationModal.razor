@@ -21,3 +21,15 @@
         </div>
     </div>
 </MyModal>
+
+@code {
+
+    [Parameter, EditorRequired] public string Title { get; set; } = default!;
+    [Parameter, EditorRequired] public string Text { get; set; } = default!;
+
+    public class Parameters : ModalParameters<ConfirmationModal>
+    {
+        [Required] public string Title { get; set; } = "Confirm Action";
+        [Required] public string Text { get; set; } = "Are you sure you want to do this?";
+    }
+}

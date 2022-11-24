@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SampleApp.Shared;
+namespace SampleApp.Modals;
 
 public class PersonModel
 {
@@ -19,5 +19,5 @@ public class PersonModel
     public string EmailAddress { get; set; } = string.Empty;
 
     [MaxLength(500)]
-    public string About { get; set;} = string.Empty;
+    public string About { get; set; } = string.Empty;
 }
