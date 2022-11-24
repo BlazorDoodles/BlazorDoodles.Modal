@@ -55,6 +55,6 @@
 
     private async Task ShowConfirmationModal()
     {
-        Result = await ModalService.Open(Parameters);
+        Result = await ModalService.Open<ConfirmationModal>(Parameters);
     }
 }

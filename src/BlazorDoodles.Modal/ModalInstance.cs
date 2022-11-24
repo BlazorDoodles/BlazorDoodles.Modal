@@ -1,23 +1,5 @@
 ﻿namespace BlazorDoodles.Modal;
 
-public interface IModalInstance
-{
-    Type ModalType { get; }
-    IDictionary<string, object?> Parameters { get; }
-}
-
-public class ModalInstance : ModalInstance<EmptyResult>
-{
-    public ModalInstance(IModalService modalService, Type modalType, IDictionary<string, object?> parameters) : base(modalService, modalType, parameters)
-    {
-    }
-
-    public void Close()
-    {
-        Close(default);
-    }
-}
-
 public class ModalInstance<TResponse> : IModalInstance
 {
     protected readonly IModalService _modalService;
@@ -35,7 +17,7 @@ public class ModalInstance<TResponse> : IModalInstance
 
         ModalType = modalType;
         Parameters = parameters;
-        Parameters.Add(nameof(ModalBase<TResponse>.Modal), this);
+        Parameters.Add(nameof(ModalBase.Modal), this);
     }
 
     public void Cancel()
@@ -48,5 +30,20 @@ public class ModalInstance<TResponse> : IModalInstance
     {
         _resultCompletion.TrySetResult(ModalResult.Ok(response));
         _modalService.Close(this);
+    }
+
+    public static implicit operator ModalInstance(ModalInstance<TResponse> instance)
+        => new(instance._modalService, instance.ModalType, instance.Parameters);
+}
+
+public class ModalInstance : ModalInstance<EmptyResult>
+{
+    public ModalInstance(IModalService modalService, Type modalType, IDictionary<string, object?> parameters) : base(modalService, modalType, parameters)
+    {
+    }
+
+    public void Close()
+    {
+        Close(default);
     }
 }
