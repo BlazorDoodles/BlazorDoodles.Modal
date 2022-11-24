@@ -11,6 +11,4 @@ public interface IModalService
     Task<ModalResult<TResponse>> Open<TModal, TResponse>(IModalParameters<TModal, TResponse> request) where TModal : IModal;
     
     void Close(IModalInstance modal);
-
-    internal Task<ModalResult<TResponse>> Open<TResponse>(ModalInstance<TResponse> modal);
 }
