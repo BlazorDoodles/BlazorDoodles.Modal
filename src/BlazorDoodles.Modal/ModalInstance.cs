@@ -1,21 +1,20 @@
 ﻿namespace BlazorDoodles.Modal;
 
-public class ModalInstance<TResponse> : IModalInstance<TResponse>
+public class ModalInstance<TModal, TResponse> : IModalInstance<TResponse>
 {
     protected readonly IModalService _modalService;
     private readonly TaskCompletionSource<IModalResult<TResponse>> _resultCompletion;
 
-    public Type ModalType { get; }
+    public Type ModalType => typeof(TModal);
     public IDictionary<string, object?> Parameters { get; }
 
     public Task<IModalResult<TResponse>> Result => _resultCompletion.Task;
 
-    public ModalInstance(IModalService modalService, Type modalType, IDictionary<string, object?> parameters)
+    public ModalInstance(IModalService modalService, IDictionary<string, object?> parameters)
     {
         _modalService = modalService;
         _resultCompletion = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        ModalType = modalType;
         Parameters = parameters;
         Parameters.Add(nameof(ModalBase.Modal), this);
     }
@@ -33,11 +32,11 @@ public class ModalInstance<TResponse> : IModalInstance<TResponse>
     }
 }
 
-public class ModalInstance : ModalInstance<EmptyResult>, IModalInstance
+public class ModalInstance<TModal> : ModalInstance<TModal, EmptyResult>, IModalInstance
 {
     private readonly TaskCompletionSource<IModalResult> _resultCompletion;
 
-    public ModalInstance(IModalService modalService, Type modalType, IDictionary<string, object?> parameters) : base(modalService, modalType, parameters)
+    public ModalInstance(IModalService modalService,IDictionary<string, object?> parameters) : base(modalService, parameters)
     {
         _resultCompletion = new(TaskCreationOptions.RunContinuationsAsynchronously);
     }
