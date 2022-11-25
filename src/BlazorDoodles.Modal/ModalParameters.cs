@@ -1,6 +1,8 @@
-﻿namespace BlazorDoodles.Modal;
+﻿using Microsoft.AspNetCore.Components;
 
-public abstract class ModalParameters<TModal, TResponse> : IModalParameters<TModal, TResponse> where TModal : IModal
+namespace BlazorDoodles.Modal;
+
+public abstract class ModalParameters<TModal, TResponse> : IModalParameters<TModal, TResponse> where TModal : IComponent
 {
     public virtual IDictionary<string, object?> ToDictionary()
     {
@@ -13,6 +15,6 @@ public abstract class ModalParameters<TModal, TResponse> : IModalParameters<TMod
     }
 }
 
-public abstract class ModalParameters<TModal> : ModalParameters<TModal, EmptyResult>, IModalParameters<TModal> where TModal : IModal
+public abstract class ModalParameters<TModal> : ModalParameters<TModal, EmptyResult> where TModal : IComponent
 {
 }

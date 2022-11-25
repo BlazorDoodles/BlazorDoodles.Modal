@@ -10,6 +10,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 // BlazorDoodles.Modal
-builder.Services.AddModalServices();
+builder.Services.AddModalDoodle();
 
 await builder.Build().RunAsync();
