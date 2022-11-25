@@ -1,9 +1,9 @@
 ﻿namespace BlazorDoodles.Modal;
 
-public class ModalInstance<TResponse> : IModalInstance
+public class ModalInstance<TResponse> : IModalInstance<TResponse>
 {
     protected readonly IModalService _modalService;
-    protected readonly TaskCompletionSource<IModalResult<TResponse>> _resultCompletion;
+    private readonly TaskCompletionSource<IModalResult<TResponse>> _resultCompletion;
 
     public Type ModalType { get; }
     public IDictionary<string, object?> Parameters { get; }
@@ -31,16 +31,18 @@ public class ModalInstance<TResponse> : IModalInstance
         _resultCompletion.TrySetResult(ModalResult.Ok(response));
         _modalService.Close(this);
     }
-
-    public static implicit operator ModalInstance(ModalInstance<TResponse> instance)
-        => new(instance._modalService, instance.ModalType, instance.Parameters);
 }
 
-public class ModalInstance : ModalInstance<EmptyResult>
+public class ModalInstance : ModalInstance<EmptyResult>, IModalInstance
 {
+    private readonly TaskCompletionSource<IModalResult> _resultCompletion;
+
     public ModalInstance(IModalService modalService, Type modalType, IDictionary<string, object?> parameters) : base(modalService, modalType, parameters)
     {
+        _resultCompletion = new(TaskCreationOptions.RunContinuationsAsynchronously);
     }
+
+    Task<IModalResult> IModalInstance.Result => _resultCompletion.Task;
 
     public void Close()
     {

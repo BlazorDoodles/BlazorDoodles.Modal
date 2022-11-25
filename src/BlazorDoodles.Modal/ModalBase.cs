@@ -2,12 +2,12 @@
 
 namespace BlazorDoodles.Modal;
 
-public abstract class ModalBase : ComponentBase, IModal<ModalInstance>
+public abstract class ModalBase : ComponentBase, IModal
 {
-    [Parameter] public ModalInstance Modal { get; set; } = null!;
+    [Parameter] public IModalInstance Modal { get; set; } = null!;
 }
 
-public abstract class ModalBase<TResponse> : ComponentBase, IModal<ModalInstance<TResponse>>
+public abstract class ModalBase<TResponse> : ComponentBase, IModal
 {
-    [Parameter] public ModalInstance<TResponse> Modal { get; set; } = null!;
+    [Parameter] public IModalInstance<TResponse> Modal { get; set; } = null!;
 }

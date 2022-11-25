@@ -2,8 +2,8 @@
 
 public class ModalService : IModalService
 {
-    private readonly List<IModalInstance> _activeModals = new();
-    public IReadOnlyCollection<IModalInstance> ActiveModals => _activeModals.AsReadOnly();
+    private readonly List<IModalReference> _activeModals = new();
+    public IReadOnlyCollection<IModalReference> ActiveModals => _activeModals.AsReadOnly();
 
     public Action? OnChange { get; set; }
 
@@ -19,22 +19,21 @@ public class ModalService : IModalService
     public Task<IModalResult<TResponse>> Open<TModal, TResponse>(IModalParameters<TModal, TResponse> request) where TModal : IModal 
         => Open(new ModalInstance<TResponse>(this, typeof(TModal), request.ToDictionary()));
 
-    public void Close(IModalInstance modal)
-        => RemoveModal(modal);
+    public void Close(IModalReference modal) => RemoveModal(modal);
 
-    private void AddModal(IModalInstance modal)
+    private void AddModal(IModalReference modal)
     {
         _activeModals.Add(modal);
         OnChange?.Invoke();
     }
 
-    private void RemoveModal(IModalInstance modal)
+    private void RemoveModal(IModalReference modal)
     {
         _activeModals.Remove(modal);
         OnChange?.Invoke();
     }
 
-    public Task<IModalResult<TResponse>> Open<TResponse>(ModalInstance<TResponse> modal)
+    public Task<IModalResult<TResponse>> Open<TResponse>(IModalInstance<TResponse> modal)
     {
         AddModal(modal);
         return modal.Result;
