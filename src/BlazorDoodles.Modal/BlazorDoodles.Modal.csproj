@@ -12,9 +12,15 @@
     <RepositoryUrl>https://github.com/BlazorDoodles/BlazorDoodles.Modal</RepositoryUrl>
     <AssemblyVersion>0.1</AssemblyVersion>
     <Authors>erinnmclaughlin</Authors>
+    <PackAsTool>True</PackAsTool>
+    <PackageLicenseFile>license</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\license">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
