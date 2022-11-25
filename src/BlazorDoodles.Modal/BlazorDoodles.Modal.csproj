@@ -14,6 +14,8 @@
     <Authors>erinnmclaughlin</Authors>
     <PackAsTool>True</PackAsTool>
     <PackageLicenseFile>license</PackageLicenseFile>
+    <FileVersion>0.1</FileVersion>
+    <Version>0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
