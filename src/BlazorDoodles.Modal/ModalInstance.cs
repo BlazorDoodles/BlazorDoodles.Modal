@@ -10,13 +10,17 @@ public class ModalInstance<TModal, TResponse> : IModalInstance<TResponse>
 
     public Task<IModalResult<TResponse>> Result => _resultCompletion.Task;
 
-    public ModalInstance(IModalService modalService, IDictionary<string, object?> parameters)
+    internal ModalInstance(IModalService modalService, IDictionary<string, object?> parameters)
     {
         _modalService = modalService;
         _resultCompletion = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
         Parameters = parameters;
         Parameters.Add(nameof(ModalBase.Modal), this);
+    }
+
+    internal ModalInstance(IModalService modalService) : this(modalService, new Dictionary<string, object?>())
+    {
     }
 
     public void Cancel()
@@ -36,9 +40,13 @@ public class ModalInstance<TModal> : ModalInstance<TModal, EmptyResult>, IModalI
 {
     private readonly TaskCompletionSource<IModalResult> _resultCompletion;
 
-    public ModalInstance(IModalService modalService,IDictionary<string, object?> parameters) : base(modalService, parameters)
+    internal ModalInstance(IModalService modalService, IDictionary<string, object?> parameters) : base(modalService, parameters)
     {
         _resultCompletion = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    }
+
+    internal ModalInstance(IModalService modalService) : this(modalService, new Dictionary<string, object?>())
+    {
     }
 
     Task<IModalResult> IModalInstance.Result => _resultCompletion.Task;
