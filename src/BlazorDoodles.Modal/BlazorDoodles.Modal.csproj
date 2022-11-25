@@ -10,12 +10,9 @@
     <Description>A simple modal framework for Blazor!</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/BlazorDoodles/BlazorDoodles.Modal</RepositoryUrl>
-    <AssemblyVersion>0.1</AssemblyVersion>
     <Authors>erinnmclaughlin</Authors>
-    <PackAsTool>True</PackAsTool>
     <PackageLicenseFile>license</PackageLicenseFile>
-    <FileVersion>0.1</FileVersion>
-    <Version>0.1</Version>
+    <Version>0.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
