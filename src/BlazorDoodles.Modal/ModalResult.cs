@@ -1,6 +1,6 @@
 ﻿namespace BlazorDoodles.Modal;
 
-public class ModalResult<TResponse>
+public class ModalResult<TResponse> : IModalResult<TResponse>
 {
     public bool IsCanceled { get; }
     public TResponse Data => DataOrDefault!;
@@ -18,7 +18,7 @@ public class ModalResult<TResponse>
     public static implicit operator ModalResult(ModalResult<TResponse> result) => new(result.IsCanceled);
 }
 
-public class ModalResult : ModalResult<EmptyResult>
+public class ModalResult : ModalResult<EmptyResult>, IModalResult
 {
     public ModalResult(bool isCanceled) : base(isCanceled, default)
     {

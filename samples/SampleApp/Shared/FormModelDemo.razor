@@ -63,7 +63,7 @@
 @code {
     private List<PersonModel> People { get; set; } = new();
 
-    private ModalResult<PersonModel>? Result { get; set; }
+    private IModalResult<PersonModel>? Result { get; set; }
 
     private async Task ShowModal()
     {

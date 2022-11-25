@@ -51,7 +51,7 @@
 @code {
 
     private ConfirmationModal.Parameters Parameters { get; set; } = new();
-    private ModalResult? Result { get; set; }
+    private IModalResult? Result { get; set; }
 
     private async Task ShowConfirmationModal()
     {

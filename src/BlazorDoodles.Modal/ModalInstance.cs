@@ -3,12 +3,12 @@
 public class ModalInstance<TResponse> : IModalInstance
 {
     protected readonly IModalService _modalService;
-    protected readonly TaskCompletionSource<ModalResult<TResponse>> _resultCompletion;
+    protected readonly TaskCompletionSource<IModalResult<TResponse>> _resultCompletion;
 
     public Type ModalType { get; }
     public IDictionary<string, object?> Parameters { get; }
 
-    public Task<ModalResult<TResponse>> Result => _resultCompletion.Task;
+    public Task<IModalResult<TResponse>> Result => _resultCompletion.Task;
 
     public ModalInstance(IModalService modalService, Type modalType, IDictionary<string, object?> parameters)
     {

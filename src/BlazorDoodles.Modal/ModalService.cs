@@ -7,16 +7,16 @@ public class ModalService : IModalService
 
     public Action? OnChange { get; set; }
 
-    public async Task<ModalResult> Open<TModal>() where TModal : IModal 
+    public async Task<IModalResult> Open<TModal>() where TModal : IModal 
         => await Open(new ModalInstance(this, typeof(TModal), new Dictionary<string, object?>()));
 
-    public async Task<ModalResult> Open<TModal>(IModalParameters<TModal> request) where TModal : IModal
+    public async Task<IModalResult> Open<TModal>(IModalParameters<TModal> request) where TModal : IModal
         => await Open(new ModalInstance(this, typeof(TModal), request.ToDictionary()));
 
-    public Task<ModalResult<TResponse>> Open<TModal, TResponse>() where TModal : IModal 
+    public Task<IModalResult<TResponse>> Open<TModal, TResponse>() where TModal : IModal 
         => Open(new ModalInstance<TResponse>(this, typeof(TModal), new Dictionary<string, object?>()));
 
-    public Task<ModalResult<TResponse>> Open<TModal, TResponse>(IModalParameters<TModal, TResponse> request) where TModal : IModal 
+    public Task<IModalResult<TResponse>> Open<TModal, TResponse>(IModalParameters<TModal, TResponse> request) where TModal : IModal 
         => Open(new ModalInstance<TResponse>(this, typeof(TModal), request.ToDictionary()));
 
     public void Close(IModalInstance modal)
@@ -34,7 +34,7 @@ public class ModalService : IModalService
         OnChange?.Invoke();
     }
 
-    public Task<ModalResult<TResponse>> Open<TResponse>(ModalInstance<TResponse> modal)
+    public Task<IModalResult<TResponse>> Open<TResponse>(ModalInstance<TResponse> modal)
     {
         AddModal(modal);
         return modal.Result;
