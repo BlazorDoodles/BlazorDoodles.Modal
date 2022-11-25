@@ -4,7 +4,22 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>BlazorDoodles.Modal</Title>
+    <Company>BlazorDoodles</Company>
+    <Description>A simple modal framework for Blazor!</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/BlazorDoodles/BlazorDoodles.Modal</RepositoryUrl>
+    <AssemblyVersion>0.1</AssemblyVersion>
+    <Authors>erinnmclaughlin</Authors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 
   <ItemGroup>
