@@ -9,16 +9,16 @@ public class ModalService : IModalService
 
     public Action? OnChange { get; set; }
 
-    public async Task<IModalResult> Open<TModal>() where TModal : IComponent 
+    public async Task<IModalResult> Open<TModal>() where TModal : ModalBase 
         => await OpenModal(new ModalInstance<TModal>(this));
 
-    public async Task<IModalResult> Open<TModal>(IModalParameters<TModal, EmptyResult> parameters) where TModal : IComponent
+    public async Task<IModalResult> Open<TModal>(IModalParameters<TModal, EmptyResult> parameters) where TModal : ModalBase
         => await OpenModal(new ModalInstance<TModal>(this, parameters.ToDictionary()));
 
-    public Task<IModalResult<TResponse>> Open<TModal, TResponse>() where TModal : IComponent
+    public Task<IModalResult<TResponse>> Open<TModal, TResponse>() where TModal : ModalBase<TResponse>
         => OpenModal(new ModalInstance<TModal, TResponse>(this));
 
-    public Task<IModalResult<TResponse>> Open<TModal, TResponse>(IModalParameters<TModal, TResponse> parameters) where TModal : IComponent
+    public Task<IModalResult<TResponse>> Open<TModal, TResponse>(IModalParameters<TModal, TResponse> parameters) where TModal : ModalBase<TResponse>
         => OpenModal(new ModalInstance<TModal, TResponse>(this, parameters.ToDictionary()));
 
     public void Close(IModalReference modal) => RemoveModal(modal);
